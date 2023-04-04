@@ -6,7 +6,7 @@ public class Principal {
 		// TODO Auto-generated method stub
 // Mostrar por consola los 10 primeros números enteros y los 10 primeros números impares
 		
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 10; i++) {
 			
 			System.out.print(i);
 			if( !(i % 2 == 0)) {
