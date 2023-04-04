@@ -1,7 +1,5 @@
 package ejercicio_01;
 
-import java.util.Iterator;
-
 public class Principal {
 
 	public static void main(String[] args) {
@@ -15,9 +13,8 @@ public class Principal {
 				System.out.print(" Es Impar");
 			}
 			System.out.println("\n");
-			
+	
 		}
-		
 		
 		
 	}
