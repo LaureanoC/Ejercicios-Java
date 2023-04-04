@@ -1,8 +1,6 @@
 package ejercicio_04;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Principal_04 {
@@ -34,6 +32,7 @@ public class Principal_04 {
 			}
 		}
 		
+		leer.close();
 		System.out.println("Numeros ingresados mayores a " + num + ": ");
 		
 		for(int i=0; i<numeros_mayores.length; i++) {
