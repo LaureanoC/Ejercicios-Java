@@ -2,9 +2,9 @@ package ejercicio_05a;
 
 public class Empresa {
 	
+	Empleado[] empleados = new Empleado[20];
+	
 	public void cargarEmpleados() {
-		
-		Empleado[] empleados = new Empleado[20];
 		
 		// Cargar 20 empleados o cargar como máx 20 empleados
 		
@@ -17,4 +17,8 @@ public class Empresa {
 		
 		}
 	}
+	
+	
 }
+
+

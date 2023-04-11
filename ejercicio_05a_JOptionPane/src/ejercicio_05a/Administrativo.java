@@ -1,6 +1,6 @@
 package ejercicio_05a;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Administrativo extends Empleado {
 
@@ -27,24 +27,18 @@ public class Administrativo extends Empleado {
 		return (this.getSueldoBase() * ((hsExtra * 1.5)+hsMes) / hsMes);
 	}
 	
-	//Constructor Administrativo 01
+	//Constructor por parámetros
 	public Administrativo(String dni, String nombre, String apellido, String email, float sueldoBase,int hsMes, int hsExtra) {
 		super(dni, nombre, apellido, email,sueldoBase);
 		setHsExtra(hsExtra);
 		setHsMes(hsMes);
 	}
 	
-	//Constructor Administrativo 01
+	//Constructor JOptionPane
 	public Administrativo() {
+		
 		super();
-		Scanner leer = new Scanner(System.in);
-		
-		System.out.println("Ingresar horas extras");
-		setHsExtra(leer.nextInt());
-		
-		System.out.println("Ingresar horas de mes");
-		setHsMes(leer.nextInt());
-		
-		leer.close();
+		setHsMes(Integer.parseInt(JOptionPane.showInputDialog("Ingrese las horas del mes")));
+		setHsExtra(Integer.parseInt(JOptionPane.showInputDialog("Ingrese las horas extras")));
 	}
 }

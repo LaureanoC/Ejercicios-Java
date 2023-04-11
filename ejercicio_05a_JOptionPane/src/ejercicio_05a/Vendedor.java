@@ -1,6 +1,6 @@
 package ejercicio_05a;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Vendedor extends Empleado{
 	
@@ -27,29 +27,21 @@ public class Vendedor extends Empleado{
 		return this.getSueldoBase() + (porcenComision*totalVentas/100);
 	}
 	
-	//Constructor Vendedor 01
+	//Constructor por parámetros
 	public Vendedor(String dni, String nombre, String apellido, String email, float sueldoBase, int porcenComision, int totalVentas) {
+		
 		super(dni, nombre, apellido, email,sueldoBase);
 		setTotalVentas(totalVentas);
 		setPorcenComision(porcenComision);
 	}
 	
-	//Constructor Vendedor 02
+	//Constructor JOptionPane
 	public Vendedor() {
-		
+	
 		super();
-		
-		Scanner leer = new Scanner(System.in);
-		
-		System.out.println("Ingresar total de ventas: ");
-		setTotalVentas(leer.nextInt());
-		
-		System.out.println("Ingresar porcentaje de comision: ");
-		setPorcenComision(leer.nextInt());
-		
-		leer.close();
-		
-		
+		setTotalVentas(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el total de ventas")));
+		setPorcenComision(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el porcentaje de comisión")));
+			
 	}
 
 	

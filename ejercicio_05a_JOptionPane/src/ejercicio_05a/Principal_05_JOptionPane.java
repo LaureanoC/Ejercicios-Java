@@ -1,6 +1,6 @@
 package ejercicio_05a;
 
-public class Principal_05 {
+public class Principal_05_JOptionPane {
 
 	public static void main(String[] args) {
 		
@@ -10,9 +10,8 @@ public class Principal_05 {
   *Luego listar los empleados indicando: dni, nombre, apellido y sueldo.
 */	
 		Empresa e = new Empresa();
-		Empleado emp = new Empleado();
-		Vendedor v = new Vendedor();
-		
+		e.cargarEmpleados();
+		e.getEmpleados();
 	}
 	
 }

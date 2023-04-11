@@ -1,6 +1,6 @@
 package ejercicio_05a;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Empleado {
 
@@ -8,7 +8,7 @@ public class Empleado {
 	private String nombre;
 	private String apellido;
 	private String email;
-	private float sueldoBase;
+	private double sueldoBase;
 	
 	public String getDni() {
 		return dni;
@@ -42,17 +42,15 @@ public class Empleado {
 		this.email = email;
 	}
 	
-	public float getSueldoBase() {
+	public double getSueldoBase() {
 		return sueldoBase;
 	}
 	
-	public void setSueldoBase(float sueldoBase) {
-		this.sueldoBase = sueldoBase;
+	public void setSueldoBase(double d) {
+		this.sueldoBase = d;
 	}
 	
-	
-	
-	// Constructor Empleado 01
+	// Constructor por parámetros
 	public Empleado(String dni, String nombre, String apellido, String email, float sueldoBase) {
 		setDni(dni);
 		setNombre(nombre);
@@ -61,31 +59,13 @@ public class Empleado {
 		setSueldoBase(sueldoBase);
 	}
 	
-	
-	
-	//Constructor Empleado 02
+	//Constructor JOptionPane
 	public Empleado() {
 		
-		Scanner leer = new Scanner(System.in);
-		
-		System.out.print("Ingrese su DNI: ");
-		setDni(leer.nextLine());
-		
-		System.out.print("Ingrese su nombre: ");
-		setNombre(leer.nextLine());
-		
-		System.out.print("Ingrese su apellido: ");
-		setApellido(leer.nextLine());
-		
-		System.out.print("Ingrese su email: ");
-		setEmail(leer.nextLine());
-		
-	
-		System.out.print("Ingrese su sueldo base: ");
-		setSueldoBase(leer.nextFloat());
-	
-		leer.close();
-		
+		setDni(JOptionPane.showInputDialog("Ingrese su DNI"));
+		setNombre(JOptionPane.showInputDialog("Ingrese su nombre"));
+		setApellido(JOptionPane.showInputDialog("Ingrese su apellido"));
+		setEmail(JOptionPane.showInputDialog("Ingrese su email"));
+		setSueldoBase(Double.parseDouble(JOptionPane.showInputDialog("Ingrese el sueldo base")));
 	}
-
 }
