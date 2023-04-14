@@ -23,11 +23,12 @@ public class Administrativo extends Empleado {
 		this.hsMes = hsMes;
 	}
 	
+	@override
 	public double getSueldo() {
 		return (this.getSueldoBase() * ((hsExtra * 1.5)+hsMes) / hsMes);
 	}
 	
-	//Constructor Administrativo por parámetros
+	//Constructor Administrativo por parï¿½metros
 	public Administrativo(String dni, String nombre, String apellido, String email, float sueldoBase,int hsMes, int hsExtra) {
 		super(dni, nombre, apellido, email,sueldoBase);
 		setHsExtra(hsExtra);
