@@ -2,7 +2,9 @@ package ejercicio_05a;
 
 import java.util.Scanner;
 
-public class Empleado {
+// abstract porque nunca vamos a instanciar empleado
+
+public abstract class Empleado { 
 
 	private String dni;
 	private String nombre;
@@ -10,6 +12,9 @@ public class Empleado {
 	private String email;
 	private double sueldoBase;
 	
+	//Las clases concretas no puden implementar metodos abstractos. 
+	//Metodos concretos de las clases abstractas
+
 	public String getDni() {
 		return dni;
 	}
@@ -42,7 +47,7 @@ public class Empleado {
 		this.email = email;
 	}
 	
-	public double getSueldoBase() {
+	public double getSueldoBase() { 
 		return sueldoBase;
 	}
 	
@@ -50,10 +55,15 @@ public class Empleado {
 		this.sueldoBase = sueldoBase;
 	}
 	
+	//abstract para que pueda ejecutar administrativo y vendedor getSueldo()
 	
+	//Java siempre le hace caso al objeto, como el array es de Empleado lo busca en empleado y no en el objeto que tiene adentro
+	// En otros lenguaje
 	
-	// Constructor Empleado por parámetros
-	public Empleado(String dni, String nombre, String apellido, String email, float sueldoBase) {
+	public abstract double getSueldo(); 
+	
+	// Constructor Empleado por parï¿½metros
+	public Empleado(String dni, String nombre, String apellido, String email, double sueldoBase) {
 		setDni(dni);
 		setNombre(nombre);
 		setApellido(apellido);

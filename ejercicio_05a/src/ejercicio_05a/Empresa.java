@@ -15,7 +15,7 @@ public class Empresa {
 		for(Empleado empleado : empleados) {
 			
 				if(empleado != null) {
-					lista = lista + "DNI: " + empleado.getDni() + " Nombre: " + empleado.getNombre() + " Apellido: " + empleado.getApellido() + " Sueldo: " + empleado.getSueldoBase() + "\n\n";
+					lista = lista + "DNI: " + empleado.getDni() + " Nombre: " + empleado.getNombre() + " Apellido: " + empleado.getApellido() + " Sueldo: " + empleado.getSueldo() + "\n\n";
 				} 
 				else {
 					break;
@@ -29,12 +29,12 @@ public class Empresa {
 		
 		Scanner lector = new Scanner(System.in);
 		
-		// Cargar 20 empleados o cargar como máx 20 empleados
+		// Cargar 20 empleados o cargar como mï¿½x 20 empleados
 		String eleccion;
 		int i=0;
 		while (i<20) {
 			
-			//Sin validación
+			//Sin validaciï¿½n
 			System.out.println("Agregar [a]dministrativo o [v]endedor -- [s]alir");
 			eleccion = (lector.nextLine().toLowerCase());
 			
@@ -61,5 +61,3 @@ public class Empresa {
 	
 	
 }
-
-
