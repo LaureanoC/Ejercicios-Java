@@ -27,24 +27,21 @@ public class Administrativo extends Empleado {
 		return (this.getSueldoBase() * ((hsExtra * 1.5)+hsMes) / hsMes);
 	}
 	
-	//Constructor Administrativo 01
+	//Constructor Administrativo por parámetros
 	public Administrativo(String dni, String nombre, String apellido, String email, float sueldoBase,int hsMes, int hsExtra) {
 		super(dni, nombre, apellido, email,sueldoBase);
 		setHsExtra(hsExtra);
 		setHsMes(hsMes);
 	}
 	
-	//Constructor Administrativo 01
-	public Administrativo() {
-		super();
-		Scanner leer = new Scanner(System.in);
+	//Constructor Administrativo con Scanner
+	public Administrativo(Scanner leer) {
+		super(leer);
 		
 		System.out.println("Ingresar horas extras");
-		setHsExtra(leer.nextInt());
+		setHsExtra(Integer.parseInt(leer.nextLine()));
 		
 		System.out.println("Ingresar horas de mes");
-		setHsMes(leer.nextInt());
-		
-		leer.close();
+		setHsMes(Integer.parseInt(leer.nextLine()));
 	}
 }

@@ -8,7 +8,7 @@ public class Empleado {
 	private String nombre;
 	private String apellido;
 	private String email;
-	private float sueldoBase;
+	private double sueldoBase;
 	
 	public String getDni() {
 		return dni;
@@ -42,17 +42,17 @@ public class Empleado {
 		this.email = email;
 	}
 	
-	public float getSueldoBase() {
+	public double getSueldoBase() {
 		return sueldoBase;
 	}
 	
-	public void setSueldoBase(float sueldoBase) {
+	public void setSueldoBase(double sueldoBase) {
 		this.sueldoBase = sueldoBase;
 	}
 	
 	
 	
-	// Constructor Empleado 01
+	// Constructor Empleado por parámetros
 	public Empleado(String dni, String nombre, String apellido, String email, float sueldoBase) {
 		setDni(dni);
 		setNombre(nombre);
@@ -63,10 +63,8 @@ public class Empleado {
 	
 	
 	
-	//Constructor Empleado 02
-	public Empleado() {
-		
-		Scanner leer = new Scanner(System.in);
+	//Constructor Empleado con Scanner
+	public Empleado(Scanner leer) {
 		
 		System.out.print("Ingrese su DNI: ");
 		setDni(leer.nextLine());
@@ -82,9 +80,7 @@ public class Empleado {
 		
 	
 		System.out.print("Ingrese su sueldo base: ");
-		setSueldoBase(leer.nextFloat());
-	
-		leer.close();
+		setSueldoBase(Double.parseDouble(leer.nextLine()));
 		
 	}
 

@@ -27,28 +27,23 @@ public class Vendedor extends Empleado{
 		return this.getSueldoBase() + (porcenComision*totalVentas/100);
 	}
 	
-	//Constructor Vendedor 01
+	//Constructor Vendedor por parámetros
 	public Vendedor(String dni, String nombre, String apellido, String email, float sueldoBase, int porcenComision, int totalVentas) {
 		super(dni, nombre, apellido, email,sueldoBase);
 		setTotalVentas(totalVentas);
 		setPorcenComision(porcenComision);
 	}
 	
-	//Constructor Vendedor 02
-	public Vendedor() {
+	//Constructor Vendedor con Scanner
+	public Vendedor(Scanner leer) {
 		
-		super();
-		
-		Scanner leer = new Scanner(System.in);
+		super(leer);
 		
 		System.out.println("Ingresar total de ventas: ");
-		setTotalVentas(leer.nextInt());
+		setTotalVentas(Integer.parseInt(leer.nextLine()));
 		
 		System.out.println("Ingresar porcentaje de comision: ");
-		setPorcenComision(leer.nextInt());
-		
-		leer.close();
-		
+		setPorcenComision(Integer.parseInt(leer.nextLine()));
 		
 	}
 
