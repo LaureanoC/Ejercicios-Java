@@ -28,7 +28,7 @@ public class Vendedor extends Empleado{
 	}
 	
 	//Constructor por parámetros
-	public Vendedor(String dni, String nombre, String apellido, String email, float sueldoBase, int porcenComision, int totalVentas) {
+	public Vendedor(String dni, String nombre, String apellido, String email, double sueldoBase, int porcenComision, int totalVentas) {
 		
 		super(dni, nombre, apellido, email,sueldoBase);
 		setTotalVentas(totalVentas);

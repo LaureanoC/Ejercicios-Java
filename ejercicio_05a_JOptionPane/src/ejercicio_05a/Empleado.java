@@ -2,7 +2,7 @@ package ejercicio_05a;
 
 import javax.swing.JOptionPane;
 
-public class Empleado {
+public abstract class Empleado {
 
 	private String dni;
 	private String nombre;
@@ -50,8 +50,10 @@ public class Empleado {
 		this.sueldoBase = d;
 	}
 	
+	public abstract double getSueldo();
+	
 	// Constructor por parámetros
-	public Empleado(String dni, String nombre, String apellido, String email, float sueldoBase) {
+	public Empleado(String dni, String nombre, String apellido, String email, double sueldoBase) {
 		setDni(dni);
 		setNombre(nombre);
 		setApellido(apellido);

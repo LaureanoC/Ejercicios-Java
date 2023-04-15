@@ -15,7 +15,7 @@ public class Empresa {
 		for(Empleado empleado : empleados) {
 			
 				if(empleado != null) {
-					lista = lista + "DNI: " + empleado.getDni() + " Nombre: " + empleado.getNombre() + " Apellido: " + empleado.getApellido() + " Sueldo: " + empleado.getSueldoBase() + "\n\n";
+					lista = lista + "DNI: " + empleado.getDni() + " Nombre: " + empleado.getNombre() + " Apellido: " + empleado.getApellido() + " Sueldo: " + empleado.getSueldo() + "\n\n";
 				} 
 				else {
 					break;
