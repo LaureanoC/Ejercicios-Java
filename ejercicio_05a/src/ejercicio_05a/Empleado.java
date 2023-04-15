@@ -62,7 +62,7 @@ public abstract class Empleado {
 	
 	public abstract double getSueldo(); 
 	
-	// Constructor Empleado por parï¿½metros
+	// Constructor Empleado por parámetros
 	public Empleado(String dni, String nombre, String apellido, String email, double sueldoBase) {
 		setDni(dni);
 		setNombre(nombre);

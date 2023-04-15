@@ -23,13 +23,13 @@ public class Vendedor extends Empleado{
 		this.totalVentas = totalVentas;
 	}
 	
-	@override //Decorador o hints
+	@Override
 	public double getSueldo() {
 		return this.getSueldoBase() + (porcenComision*totalVentas/100);
 	}
 	
-	//Constructor Vendedor por parï¿½metros
-	public Vendedor(String dni, String nombre, String apellido, String email, float sueldoBase, int porcenComision, int totalVentas) {
+	//Constructor Vendedor por parámetros
+	public Vendedor(String dni, String nombre, String apellido, String email, double sueldoBase, int porcenComision, int totalVentas) {
 		super(dni, nombre, apellido, email,sueldoBase);
 		setTotalVentas(totalVentas);
 		setPorcenComision(porcenComision);

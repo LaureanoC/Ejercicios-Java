@@ -29,12 +29,12 @@ public class Empresa {
 		
 		Scanner lector = new Scanner(System.in);
 		
-		// Cargar 20 empleados o cargar como mï¿½x 20 empleados
+		// Cargar 20 empleados o cargar como min 20 empleados
 		String eleccion;
 		int i=0;
 		while (i<20) {
 			
-			//Sin validaciï¿½n
+			//Sin validación
 			System.out.println("Agregar [a]dministrativo o [v]endedor -- [s]alir");
 			eleccion = (lector.nextLine().toLowerCase());
 			
