@@ -14,6 +14,8 @@
   - [Retornando un HashMap](#retornando-un-hashmap)
   - [Mostrando los datos](#mostrando-los-datos)
   - [listarProductos()](#listarproductos)
+- [Método mostrarProducto()](#m%C3%A9todo-mostrarproducto)
+  - [devolverProducto(int id)](#devolverproductoint-id)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -471,22 +473,132 @@ Basicamente si el mensaje de error no se encuentra nulo, muestro el mensaje. Si 
    		}	
    	}
 ```
+# Método mostrarProducto()
+
+Esta vez nos anticiparemos para encerrar el código que mostrará el main.
+
+Crearemos dos metodos.
+1. mostrarProducto()
+2. devolverProducto(int id)
+
+Con la idea de que el primero es para mostrar la información como el caso anterior.
+
+Y en segundo es el encargado de abrir una conexión, recuperar el dato y devolverle el map con el objeto Producto o String.
+
+Debemos pasarle el lector xq así funciona...
+
+Así nos queda el main
+
+```java
+case "2": mostrarProducto(lector);
+        break;
+```
+
+Nuestro metodo mostrarProducto queda definido así.
+Sencillo de interpretar -> Le pregunta un ID -> ese ID es mandado al metodo devolverProducto -> Puede devolver un mensaje de error o un Producto
+
+Si el mensaje de error NO es nulo -> Imprime el mensaje de error
+Si el mensaje de error es nulo -> Imprime los datos del objeto
+
+```java
+private static void mostrarProducto(Scanner lector) {
+		
+	System.out.println("Ingrese un ID de Producto");
+	int id = Integer.parseInt(lector.nextLine());
+	 
+	Map <String, Object> map = devolverProducto(id);
+	 
+	if(map.get("error") != null) {
+		 System.out.println(map.get("error"));
+	}
+	else {
+		Producto producto = (Producto) map.get("producto");
+		System.out.println("ID: " + producto.getId() + " Nombre: " + producto.getName() +" Stock: " + producto.getStock() + " Precio: " + producto.getPrice() + " Descripcion: " + producto.getDescription() + " Envío: " + producto.isShippingIncluded());
+	}
+}
+```
+
+Una vez pensado este método nos iremos a desarrollar devolverProducto(id);
 
 
 
+## devolverProducto(int id)
+
+Este método será realizado con PreparedStatement pero no es realmente necesario ya que un entero nunca va a tener caracteres especiales por lo que no habría que preocuparse. Habría que preguntar si es buena práctica.
+
+Este método será el encargado de realizar una conexión, setear el objeto y devolver el objeto Map.
+
+Creo objeto map<String,Object>
+Connection conn = null
+
+Dentro de un try 
+1. Abro conexión
+2. Creo un PreparedStatement para asignar comodamente el parámetro utilizado
+3. Asigno el parametro con un setInt()
+4. Le asigno el resultset obtenido de la query
+5. Creo un objeto Producto
+6. Lo relleno con los setters y pidiendole los datos al resultset
+7. Cierro la conexión
+8. Agrego el Producto al mapa y el mensaje como null
+
+Dentro del catch
+1. Asigno el valor a mensaje
+2. Agrego el mensaje al mapa y el producto como null
 
 
+Por ultimo se retorna el mapa con sus respectivos valores. Y al probarlo vemos que funciona correctamente con el código anterior
 
-
-
-
-
-
-
-
-
-
-
-
-
+```java
+private static Map<String, Object> devolverProducto(int id) {
+	
+	Map<String, Object> mapa = new HashMap();
+	Connection conn = null;
+	
+	try {
+		//abro conexión
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/javamarket","javamarketuser","laureano");
+		
+		//Creo statement y ejecuto query
+		PreparedStatement st = conn.prepareStatement("select * from product where product_id=?");
+		
+		//Defino el parámetro
+		st.setInt(1,id);
+		
+		//Ejecuto query y obtengo resultset
+		ResultSet rs = st.executeQuery();
+		
+		//Mapeo, puedo utilizar if si es solo un valor, con el while da lo mismo
+		
+		Producto p = new Producto(); // Lo pongo afuera ya que es 1
+		
+		if(rs.next()) {
+			p.setId(rs.getInt("product_id"));
+			p.setName(rs.getString("product_name"));
+			p.setPrice(rs.getDouble("product_price"));
+			p.setStock(rs.getInt("product_stock"));
+			p.setDescription(rs.getString("product_description"));
+			p.setShippingIncluded(rs.getBoolean("product_shipping_included"));
+		}
+		
+		// Liberar recursos
+		
+		if(rs!=null) {rs.close();}
+		if(st!=null) {st.close();}
+		
+		conn.close();
+			
+		// lo agrego al mapa
+		mapa.put("producto", p);
+		
+	}
+	catch(SQLException ex) {
+		String mensaje = "SQLException: " + ex.getMessage() + " SQLState: " + ex.getSQLState() + "VendorError: " + ex.getErrorCode();
+		mapa.put("producto", null);
+		mapa.put("error", mensaje);
+		return mapa;
+	}
+	
+	return mapa;
+}
+```
 
