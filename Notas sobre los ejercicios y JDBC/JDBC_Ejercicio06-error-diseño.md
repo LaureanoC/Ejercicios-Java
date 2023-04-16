@@ -1,3 +1,7 @@
+
+## Este ejercicio lo dejé por la mitad porque me di cuenta que no cumplí con una de las restricciones
+No tenía bien separada las capas. No existe una capa data, la capa data en esta resolución incompleta está en el main.
+También incumplo la restricción de pasar parámetro Producto y no parámetros del tipo primitivo (int id, String name)
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -100,8 +104,6 @@ Para ver la información de todos tus usuarios creados desde una instancia root
 ```sql
 SELECT * FROM mysql.user;
 ```
-
-Para ver las contraseñas que estan hasheadas podemos utilizar PASSWORD() o SHA1() en mysql
 
 
 
@@ -601,4 +603,5 @@ private static Map<String, Object> devolverProducto(int id) {
 	return mapa;
 }
 ```
+# insertarProducto()
 
