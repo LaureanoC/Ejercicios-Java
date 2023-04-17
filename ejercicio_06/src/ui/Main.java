@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import daos.ProductoDAO;
-
-import java.sql.*;
 import entities.*;
 
 public class Main {

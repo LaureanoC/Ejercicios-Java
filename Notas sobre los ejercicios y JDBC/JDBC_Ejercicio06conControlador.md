@@ -34,6 +34,10 @@
   - [Test - Borrar un producto por id](#test---borrar-un-producto-por-id)
 - [Ultima parte](#ultima-parte)
   - [UI - modificarProducto()](#ui---modificarproducto)
+  - [Lógica - modificarProducto()](#l%C3%B3gica---modificarproducto)
+  - [Data - modificarDatosProducto()](#data---modificardatosproducto)
+  - [Test - Modificar datos de un producto](#test---modificar-datos-de-un-producto)
+- [Lo que aprendí](#lo-que-aprend%C3%AD)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -129,7 +133,7 @@ Desde aquí le pediremos que nos debe devolver mediante un menú.
 
 Por ultimo tenemos la capa data, donde se encontrará el acceso a la base de datos y a la tabla Product para devolver los datos necesarios que le pida el controlador.
 
-<img src="img\ej06organizacion.png" alt="Estructura de paquetes">
+<img src="img/ejercicio_06/ej06organizacion.png" alt="Estructura de paquetes">
 
 # HashMap
 
@@ -486,7 +490,7 @@ Bueno ahora es hora de probar si funciona nuestro primer apartado del menú.
 
 Para ello primero le damos play y nos mostrará el camino feliz.
 
-<image src="img/ej06_mostrarTodosLosProductos.png" alt="Resultado del metodo">
+<image src="img/ejercicio_06/ej06_mostrarTodosLosProductos.png" alt="Resultado del metodo">
 
 En caso de querer el camino triste, el de la excepción, detendremos el servicio mysql.
 
@@ -494,11 +498,11 @@ En windows -> Tecla windows, escribimos servicios, buscamos mysql, click derecho
 
 Luego recordemos de reanudar el servicio. (Iniciar)
 
-<image src="img/mysql_stop.png" alt="Resultado del metodo">
+<image src="img/ejercicio_06/mysql_stop.png" alt="Resultado del metodo">
 
 En el camino triste obtenemos el siguiente resultado.
 
-<image src="img/ej06_mostrarTodosLosProductosTriste.png" alt="Resultado del metodo">
+<image src="img/ejercicio_06/ej06_mostrarTodosLosProductosTriste.png" alt="Resultado del metodo">
 
 # Segunda parte
 
@@ -637,11 +641,12 @@ public Map<String, Object>devolverProducto(Producto p){
 Probamos camino feliz y triste
 
 1. Sin problemas 
-<img src="img/ej06_mostrarProducto.png" alt="Resultado b">
+
+<img src="img/ejercicio_06/ej06_mostrarProducto.png" alt="Resultado b">
 
 2. Con problemas porque el id no existe en la base de datos y el retorno da algo por default. Hay que manejarlo
 
-<img src="img/ej06_mostrarProductoProblema.png" alt="Resultado b con problemas">
+<img src="img/ejercicio_06/ej06_mostrarProductoProblema.png" alt="Resultado b con problemas">
 
 3. Si desconectamos mysql obtendremos el respectivo mensaje de error.
 
@@ -785,15 +790,15 @@ Pues he ido insertando nuevos productos y he comprobado que funciona utilizando 
 
 Probando nuevo método
 
-<img src="img/ej06_insertarProducto_1.png" alt="Resultado c">
+<img src="img/ejercicio_06/ej06_insertarProducto_1.png" alt="Resultado c">
 
 Comprobando con la primera parte
 
-<img src="img/ej06_insertarProducto_2.png" alt="Resultado c">
+<img src="img/ejercicio_06/ej06_insertarProducto_2.png" alt="Resultado c">
 
 Comproband con la segunda parte
 
-<img src="img/ej06_insertarProducto_3.png" alt="Resultado c">
+<img src="img/ejercicio_06/ej06_insertarProducto_3.png" alt="Resultado c">
 
 # Cuarta Parte
 La cuarta parte decía eliminar un Product. El usuario debe ingresar un id y la app debe eliminar el registro.
@@ -877,11 +882,11 @@ Existe un problema en este código y es que no valida si la cantidad de tablas q
 
 Aquí una demostración
 
-<img src="img/ej06_borrarProducto_problema.png" alt="problema con mostrar mensaje">
+<img src="img/ejercicio_06/ej06_borrarProducto_problema.png" alt="problema con mostrar mensaje">
 
 Aquí vemos como funciona correctamente el borrado físico.
 
-<img src="img/ej06_borrarProducto_1.png" alt="borrado exitosamente">
+<img src="img/ejercicio_06/ej06_borrarProducto_1.png" alt="borrado exitosamente">
 
 # Ultima parte
 
@@ -889,12 +894,164 @@ Modificar un Product. El usuario debe ingresar un id y la app debe mostrar los d
 
 ## UI - modificarProducto()
 
+Será una mezcla de la segunda parte y tercera parte.
+De seguro se puede optimizar.
 
+Creamos un método cambiarDatosProducto
+```java
+case "5": cambiarDatosProducto(c,lector);
+				break;
+```
+Pido ID, utilizo el método de la segunda parte. 
+Recupero el map, si el mensaje no está nulo prosigo a mostrarle la info y pedir los datos para luego decirle a controlador che quiero que me modifiques el producto.
 
+Si sale todo bien te muestro el producto con los nuevos datos modificados.
 
+```java
+private static void cambiarDatosProducto(ControladorCRUD c, Scanner lector) {
 
+		System.out.println("Ingrese un ID de Producto para modificar");
+		int id = Integer.parseInt(lector.nextLine());
 
+		Producto p = new Producto();
+		p.setId(id);
 
+		Map<String, Object> map = c.recuperarProducto(p);
+
+		if (map.get("error") != null) {
+			System.out.println(map.get("error"));
+		} else {
+			Producto producto = (Producto) map.get("producto");
+			System.out.println(" Producto -> ID: " + producto.getId() + " Nombre: " + producto.getName() + " Stock: "
+					+ producto.getStock() + " Precio: " + producto.getPrice() + " Descripcion: "
+					+ producto.getDescription() + " Envío: " + producto.isShippingIncluded());
+			
+			System.out.println("Ingresar nuevo nombre del Producto");
+			p.setName(lector.nextLine());
+			
+			System.out.println("Ingresar nuevo precio del Producto");
+			p.setPrice(Double.parseDouble(lector.nextLine()));
+			
+			System.out.println("Ingresar nuevo stock del Producto");
+			p.setStock(Integer.parseInt(lector.nextLine()));
+			
+			System.out.println("Ingresar nueva descripcion del Producto");
+			p.setDescription(lector.nextLine());
+			
+			System.out.println("Ingresar si el envío del producto está incluido");
+			p.setShippingIncluded(Boolean.parseBoolean(lector.nextLine()));
+			
+			
+			map = c.modificarProducto(producto);
+			if (map.get("error") != null) {
+				System.out.println(map.get("error"));
+			} else {
+				producto = (Producto) map.get("producto");
+				System.out.println("Producto Modificado");
+				System.out.println("ID: " + producto.getId() + " Nombre: " + producto.getName() + " Stock: "
+						+ producto.getStock() + " Precio: " + producto.getPrice() + " Descripcion: "
+						+ producto.getDescription() + " Envío: " + producto.isShippingIncluded());
+			}
+		
+		}
+		
+		
+}
+```
+
+## Lógica - modificarProducto()
+
+Misma idea que los 4 anteriores. Pedirle al dao, que es el encargado al acceso a los datos, che quiero modificar el producto que contiene ese id con esos nuevos datos.
+
+```java
+public Map<String, Object> modificarProducto(Producto p) {
+	Map<String, Object> mapa =  pdao.modificarDatosProducto(p); 
+	return mapa;
+	}
+```
+
+## Data - modificarDatosProducto()
+
+Si leistes las anteriores partes, los pasos son muy parecidos, lo que cambia es la sentencia de la query y que no guardo ningun resultset.
+
+Retorno el mapa ya sea con error nulo o no.
+
+```java
+public Map<String, Object> modificarDatosProducto(Producto p) {
+
+		Connection conn = null;
+		Map<String, Object> mapa = new HashMap();
+
+		try {
+
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/javamarket", "javamarketuser", "laureano");
+
+			PreparedStatement st = conn.prepareStatement("update product set product_name=?, product_price=?, product_stock=?, product_description=?, product_shipping_included=? where product_id=? ");
+			st.setString(1, p.getName());
+			st.setDouble(2, p.getPrice());
+			st.setInt(3, p.getStock());
+			st.setString(4, p.getDescription());
+			st.setBoolean(5, p.isShippingIncluded());
+			st.setInt(6, p.getId());
+
+			st.executeUpdate();
+
+			if (st != null) {
+				st.close();
+			}
+
+			conn.close();
+
+			mapa.put("producto", p);
+			mapa.put("error", null);
+
+		} catch (SQLException ex) {
+			String mensaje = "SQLException: " + ex.getMessage() + "SQLState: " + ex.getSQLState() + "VendorError: "
+					+ ex.getErrorCode();
+			mapa.put("error", mensaje);
+			mapa.put("producto", null);
+		}
+
+		return mapa;
+
+	}
+
+```
+## Test - Modificar datos de un producto
+
+Pues utilizamos el metodo desarrollado en la primera parte para ver todos los productos disponibles y elegir uno desde ahí.
+
+Seguramente ocurrirá el problema planteado anteriormente de si no existe el id.
+
+Pedimos todos los productos con la opción 1
+
+<img src="img/ejercicio_06/ej06_modificarProducto_1.png" alt ="mostrar todos los productos">
+
+Luego con la opción 5 nos pide ingresar un id, nos muestra la información del producto e ingresamos los nuevos datos del producto.
+
+<img src="img/ejercicio_06/ej06_modificarProducto_2.png" alt ="modificando el producto">
+
+Por si no te quedaste convencido de que funcionó utilizaremos la primera opción para recuperar todos los productos y veremos que se encuentra allí.
+
+<img src="img/ejercicio_06/ej06_modificarProducto_3.png" alt ="muestrar todos los productos, producto modificado">
+
+# Lo que aprendí
+
+Un ejercicio completo para entender los conceptos de 3 capas. En un principio me desvié por las ramas por no leer completamente el ejercicio con sus restricciones. Había mezclado las tres capas por completo pero me di cuenta y comencé a realizarlo de nuevo.
+
+Este ejercicio me sirvió para comprender mejor como se programa en tres capas. Aún no está 'corregido' asi que estaré esperando a ver que puedo mejorar y si entendí el concepto.
+
+La UI solo le pedía al controlador que le traiga lo que quisiera para luego presentarlo en pantalla.
+
+El controlador no tuvo un trabajo muy complicado ya que solo debía pedirle al DAO de Producto la acción que correspondía. La consulta sql eran simples y hacia una sola tabla. Si no se sabe mucho de sql quizá podrías traer el conjunto de objetos y trabajar con ese iterable hasta tener el resultado deseado para devolverselo a la ui.
+
+La capa de data para conectarse a la base de datos, recuperar, insertar, eliminar o modiciar (CRUD).
+
+Con la capa de data se aprendió mucho a crear el conector, abrir conexión, preparar la query y ejecutar la query. Que devuelve un tipo de objeto Resultset para luego mapearlo a objeto.
+
+También aprendí más sobre una nueva estructura de datos a la que di mucho uso -> HashMap.
+
+Por ultimo y no menos importante aprendí la configuración previa que hay que tener para este ejercicio como el JConnector de mysql para poder realizar las conexiones con la base de datos desde Java y obviamente importar java.mysql para obtener los métodos necesarios para ejecutar una query.
 
 
 

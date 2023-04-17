@@ -39,7 +39,7 @@ public class Menu {
 			case "4": borrarProducto(c,lector);
 				break;
 
-			case "5":
+			case "5": cambiarDatosProducto(c,lector);
 				break;
 
 			}
@@ -142,5 +142,57 @@ public class Menu {
 			System.out.println("PRODUCTO ELIMINADO CON ID: " + producto.getId());
 		}
 	}
+	
+	private static void cambiarDatosProducto(ControladorCRUD c, Scanner lector) {
+
+		System.out.println("Ingrese un ID de Producto para modificar");
+		int id = Integer.parseInt(lector.nextLine());
+
+		Producto p = new Producto();
+		p.setId(id);
+
+		Map<String, Object> map = c.recuperarProducto(p);
+
+		if (map.get("error") != null) {
+			System.out.println(map.get("error"));
+		} else {
+			Producto producto = (Producto) map.get("producto");
+			System.out.println(" Producto -> ID: " + producto.getId() + " Nombre: " + producto.getName() + " Stock: "
+					+ producto.getStock() + " Precio: " + producto.getPrice() + " Descripcion: "
+					+ producto.getDescription() + " Envío: " + producto.isShippingIncluded());
+			
+			System.out.println("Ingresar nuevo nombre del Producto");
+			p.setName(lector.nextLine());
+			
+			System.out.println("Ingresar nuevo precio del Producto");
+			p.setPrice(Double.parseDouble(lector.nextLine()));
+			
+			System.out.println("Ingresar nuevo stock del Producto");
+			p.setStock(Integer.parseInt(lector.nextLine()));
+			
+			System.out.println("Ingresar nueva descripcion del Producto");
+			p.setDescription(lector.nextLine());
+			
+			System.out.println("Ingresar si el envío del producto está incluido");
+			p.setShippingIncluded(Boolean.parseBoolean(lector.nextLine()));
+			
+			
+			map = c.modificarProducto(producto);
+			if (map.get("error") != null) {
+				System.out.println(map.get("error"));
+			} else {
+				producto = (Producto) map.get("producto");
+				System.out.println("Producto Modificado");
+				System.out.println("ID: " + producto.getId() + " Nombre: " + producto.getName() + " Stock: "
+						+ producto.getStock() + " Precio: " + producto.getPrice() + " Descripcion: "
+						+ producto.getDescription() + " Envío: " + producto.isShippingIncluded());
+			}
+		
+		}
+		
+		
+	}
+	
+	
 
 }

@@ -10,7 +10,7 @@ public class ControladorCRUD {
 
 	private static ProductoDAO pdao = new ProductoDAO();
 
-	public static Map<String, Object> recuperarTodosLosProductos() {
+	public Map<String, Object> recuperarTodosLosProductos() {
 
 		Map<String, Object> mapa = pdao.devolverTodosLosProductos();
 		return mapa;
@@ -32,6 +32,12 @@ public class ControladorCRUD {
 		Map<String, Object> mapa = pdao.destruirProducto(p);
 		return mapa;
 		
+	}
+	
+	public Map<String, Object> modificarProducto(Producto p) {
+		
+		Map<String, Object> mapa =  pdao.modificarDatosProducto(p); 
+		return mapa;
 	}
 	
 	

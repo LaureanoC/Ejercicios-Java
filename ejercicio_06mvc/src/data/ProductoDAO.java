@@ -1,5 +1,4 @@
 package data;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -157,9 +156,9 @@ public class ProductoDAO {
 			}
 
 			conn.close();
-			
+
 			// Agrego el producto al map
-			
+
 			mapa.put("producto", p);
 			mapa.put("error", null);
 
@@ -173,23 +172,20 @@ public class ProductoDAO {
 		return mapa;
 
 	}
-	
-	
-	
-	
+
 	public Map<String, Object> destruirProducto(Producto p) {
 
 		Connection conn = null;
 		Map<String, Object> mapa = new HashMap();
 
 		try {
-			
+
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/javamarket", "javamarketuser", "laureano");
 
 			PreparedStatement st = conn.prepareStatement("delete from product where product_id=? ");
-			
+
 			st.setInt(1, p.getId());
-			
+
 			st.executeUpdate();
 
 			mapa.put("producto", p);
@@ -205,23 +201,44 @@ public class ProductoDAO {
 		return mapa;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public Map<String, Object> modificarDatosProducto(Producto p) {
+
+		Connection conn = null;
+		Map<String, Object> mapa = new HashMap();
+
+		try {
+
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/javamarket", "javamarketuser", "laureano");
+
+			PreparedStatement st = conn.prepareStatement("update product set product_name=?, product_price=?, product_stock=?, product_description=?, product_shipping_included=? where product_id=? ");
+			st.setString(1, p.getName());
+			st.setDouble(2, p.getPrice());
+			st.setInt(3, p.getStock());
+			st.setString(4, p.getDescription());
+			st.setBoolean(5, p.isShippingIncluded());
+			st.setInt(6, p.getId());
+
+			st.executeUpdate();
+
+			if (st != null) {
+				st.close();
+			}
+
+			conn.close();
+
+			mapa.put("producto", p);
+			mapa.put("error", null);
+
+		} catch (SQLException ex) {
+			String mensaje = "SQLException: " + ex.getMessage() + "SQLState: " + ex.getSQLState() + "VendorError: "
+					+ ex.getErrorCode();
+			mapa.put("error", mensaje);
+			mapa.put("producto", null);
+		}
+
+		return mapa;
+
+	}
 
 }
