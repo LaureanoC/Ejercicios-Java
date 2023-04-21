@@ -95,7 +95,7 @@ CREATE TABLE `product` (
   `product_price` double NOT NULL,
   `product_stock` int NOT NULL,
   `product_shipping_included` tinyint NOT NULL,
-  PRIMARY KEY (`id_product`)
+  PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 --
 -- Dumping data for table `product`
