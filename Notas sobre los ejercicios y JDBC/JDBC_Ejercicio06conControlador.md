@@ -1053,6 +1053,8 @@ También aprendí más sobre una nueva estructura de datos a la que di mucho uso
 
 Por ultimo y no menos importante aprendí la configuración previa que hay que tener para este ejercicio como el JConnector de mysql para poder realizar las conexiones con la base de datos desde Java y obviamente importar java.mysql para obtener los métodos necesarios para ejecutar una query.
 
+# Corrección
 
+El ejercicio está bien. Una posible mejora sería:
 
-
+Se puede encapsular la parte de crear una conexión con una url predefinida cosa de que si en algun momento se cambia el string connection solo le cambio de un solo lado y no tengo que estar entrando en cada metodo modificandolo uno a uno.
