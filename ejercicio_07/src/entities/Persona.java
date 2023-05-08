@@ -84,6 +84,11 @@ public class Persona {
 		
 	}
 	
+	public void removeRoles(){
+		this.roles.clear();
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "\nPersona [id=" + id + ", documento=" + documento + ", nombre=" + nombre + ", apellido=" + apellido
