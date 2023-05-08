@@ -45,6 +45,10 @@ public class Login {
 		dp.updateUser(p);
 	}
 
+	public void deleteUser(Persona p) {
+		dp.deleteUser(p);
+	}
+
 	// Rol
 
 	public LinkedList<Rol> getAllRol() {

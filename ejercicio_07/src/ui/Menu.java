@@ -43,10 +43,9 @@ public class Menu {
 			break;
 		case "edit":
 			actualizarUsuario();
-
 			break;
 		case "delete":
-
+			borrarUsuario();
 			break;
 		default:
 			break;
@@ -97,16 +96,15 @@ public class Menu {
 
 	private void crearUsuario() {
 
-		System.out.println("-------- Crear un nuevo usuario ----------");
+		System.out.println("-------- CREAR UN NUEVO USUARIO ----------");
 		Persona p = new Persona();
 		p = setearPersona(p);
-
 		ctrlLogin.newUser(p);
+		System.out.println("El usuario ha sido registrado.");
 
 	}
 
 	private Persona setearPersona(Persona p) {
-
 
 		Documento d = new Documento();
 		p.setDocumento(d); // Le asigno la posición de memoria del documento al doc de persona
@@ -125,11 +123,10 @@ public class Menu {
 
 		System.out.print("Email: ");
 		p.setEmail(s.nextLine());
-		
+
 		System.out.print("Contraseña: ");
 		p.setPassword(s.nextLine());
-		
-		
+
 		System.out.print("Habilitado True/False: ");
 		p.setHabilitado(Boolean.parseBoolean(s.nextLine()));
 
@@ -169,6 +166,14 @@ public class Menu {
 		System.out.println(p);
 		p = setearPersona(p);
 		ctrlLogin.updateUser(p);
+		System.out.println("El usuario ha sido actualizado");
+	}
+
+	private void borrarUsuario() {
+		System.out.println("------- ELIMINAR USUARIO ---------");
+		Persona p = find();
+		ctrlLogin.deleteUser(p);
+		System.out.println("El usuario ha sido eliminado.");
 	}
 
 }

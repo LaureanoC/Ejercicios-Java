@@ -283,42 +283,39 @@ public class DataPersona {
 		}
 	}
 
-	
 	public void updateUser(Persona p) {
-		
+
 		PreparedStatement stmt = null;
 		try {
-			//tipo_doc, nro_doc, nombre, apellido, email, tel, habilitado, password
-				stmt = DbConnector.getInstancia().getConn()
-						.prepareStatement
-						("UPDATE persona SET tipo_doc=?, nro_doc=?, nombre=?, apellido=?, email=?, tel=?, habilitado=?, password=? where id=?");
-				stmt.setString(1, p.getDocumento().getTipo());
-				stmt.setString(2, p.getDocumento().getNro());
-				stmt.setString(3, p.getNombre());
-				stmt.setString(4, p.getApellido());
-				stmt.setString(5, p.getEmail());
-				stmt.setString(6, p.getTel());
-				stmt.setBoolean(7, p.isHabilitado());
-				stmt.setString(8, p.getPassword());
-				stmt.setInt(9, p.getId());
-			
-				stmt.executeUpdate();
-				
-				// Actualizo la tabla rol_persona para ello borro y creo desde 0 en este caso
-				
-				stmt = DbConnector.getInstancia().getConn()
-						.prepareStatement("DELETE from rol_persona WHERE id_persona=?");
-				stmt.setInt(1, p.getId());
-				stmt.executeUpdate();
-				
-				for (Integer key : p.getRoles().keySet()) {
-					stmt = DbConnector.getInstancia().getConn()
-							.prepareStatement("INSERT INTO rol_persona (id_persona, id_rol) VALUES (?,?)");
-					stmt.setInt(1, p.getId());
-					stmt.setInt(2, key);
+			// tipo_doc, nro_doc, nombre, apellido, email, tel, habilitado, password
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"UPDATE persona SET tipo_doc=?, nro_doc=?, nombre=?, apellido=?, email=?, tel=?, habilitado=?, password=? where id=?");
+			stmt.setString(1, p.getDocumento().getTipo());
+			stmt.setString(2, p.getDocumento().getNro());
+			stmt.setString(3, p.getNombre());
+			stmt.setString(4, p.getApellido());
+			stmt.setString(5, p.getEmail());
+			stmt.setString(6, p.getTel());
+			stmt.setBoolean(7, p.isHabilitado());
+			stmt.setString(8, p.getPassword());
+			stmt.setInt(9, p.getId());
 
-					stmt.executeUpdate();
-				}
+			stmt.executeUpdate();
+
+			// Actualizo la tabla rol_persona para ello borro y creo desde 0 en este caso
+
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from rol_persona WHERE id_persona=?");
+			stmt.setInt(1, p.getId());
+			stmt.executeUpdate();
+
+			for (Integer key : p.getRoles().keySet()) {
+				stmt = DbConnector.getInstancia().getConn()
+						.prepareStatement("INSERT INTO rol_persona (id_persona, id_rol) VALUES (?,?)");
+				stmt.setInt(1, p.getId());
+				stmt.setInt(2, key);
+
+				stmt.executeUpdate();
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -332,7 +329,39 @@ public class DataPersona {
 				e.printStackTrace();
 			}
 		}
-		
+
+	}
+
+	public void deleteUser(Persona p) {
+
+		PreparedStatement stmt = null;
+		try {
+
+			// Borro primero los registros de rol_persona por id
+
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from rol_persona WHERE id_persona=?");
+			stmt.setInt(1, p.getId());
+			stmt.executeUpdate();
+
+			// Borro la persona por id
+
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from persona Where id=?");
+			stmt.setInt(1, p.getId());
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }
