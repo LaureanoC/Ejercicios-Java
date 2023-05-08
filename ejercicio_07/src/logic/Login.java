@@ -7,9 +7,11 @@ import entities.*;
 
 public class Login {
 	private DataPersona dp;
+	private DataRol dr;
 	
 	public Login() {
 		dp=new DataPersona();
+		dr= new DataRol();
 	}
 	
 	public Persona validate(Persona p) {
@@ -27,5 +29,20 @@ public class Login {
 	public Persona getByDocumento(Persona per) {
 		return dp.getByDocumento(per);
 		
+	}
+	
+	public LinkedList<Persona> getAllBySurname() {
+		return dp.getAllBySurname();
+		
+	}
+	
+	public void newUser(Persona p) {
+		dp.newUser(p);
+	}
+	
+	//Rol
+	
+	public LinkedList<Rol> getAllRol(){
+		return dr.getAll();
 	}
 }

@@ -1,6 +1,7 @@
 package ui;
 
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import entities.*;
@@ -36,10 +37,10 @@ public class Menu {
 			System.out.println(find());
 			break;
 		case "search":
-	
+			System.out.println(ctrlLogin.getAllBySurname());
 			break;
 		case "new":
-			
+			crearUsuario();
 			break;
 		case "edit":
 			
@@ -93,5 +94,66 @@ public class Menu {
 		
 		return ctrlLogin.getByDocumento(p);
 	}
+	
+	private void crearUsuario() {
+		
+		Persona p = new Persona();
+		Documento d = new Documento();
+		p.setDocumento(d); // Le asigno la posición de memoria del documento al doc de persona
+		
+		System.out.println("-------- Crear un nuevo usuario ----------");
+		
+		System.out.print("Tipo doc: ");
+		d.setTipo(s.nextLine());
+		System.out.print("Nro doc: ");
+		d.setNro(s.nextLine());
+		
+		System.out.print("Nombre: ");
+		p.setNombre(s.nextLine());
+		System.out.print("Apellido: ");
+		p.setApellido(s.nextLine());
+		System.out.print("Telefono ");
+		p.setTel(s.nextLine());
+		
+		System.out.print("Email: ");
+		p.setEmail(s.nextLine());
+		System.out.print("Contraseña: ");
+		p.setPassword(s.nextLine());
+		
+		p.setHabilitado(true);
+		
+		// Roles existentes para agregarle al usuario
+	
+		LinkedList<Rol> roles = ctrlLogin.getAllRol();
+		System.out.println("Introducir id rol -- exit para salir");
+		System.out.println(roles);
+		String i = "";
+		while(!i.equals("exit") ) {
+			switch(i) {
+				case "1": 
+					//Si no lo tiene lo agrego
+					if(!p.hasRol(roles.get(0))) { 
+						p.addRol(roles.get(0));
+					}
+					
+				break;
+				
+				case "2": 
+					if(!p.hasRol(roles.get(1))) { 
+						p.addRol(roles.get(1));
+					}
+				break;	
+			}
+			
+			i = s.nextLine();
+			
+		}
+		
+		ctrlLogin.newUser(p);
+		
+		
+		
+	}
+
 
 }

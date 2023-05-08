@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Persona {
 	private int id;
@@ -76,6 +77,11 @@ public class Persona {
 	
 	public boolean hasRol(Rol rolToCheck) {
 		return this.roles.containsKey(rolToCheck.getId());
+	}
+	
+	public HashMap<Integer, Rol> getRoles(){
+		return this.roles;
+		
 	}
 	
 	@Override
